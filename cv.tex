@@ -8,6 +8,7 @@
 
 \documentclass[letterpaper,11pt]{article}
 
+\usepackage[T1]{fontenc}
 \usepackage{fontawesome5}
 \usepackage{latexsym}
 \usepackage[empty]{fullpage}
@@ -16,16 +17,15 @@
 \usepackage[usenames,dvipsnames]{color}
 \usepackage{verbatim}
 \usepackage{enumitem}
-\usepackage[hidelinks]{hyperref}
 \usepackage{fancyhdr}
 \usepackage[english]{babel}
 \usepackage{tabularx}
 \input{glyphtounicode}
 
+\usepackage{newtxtext,newtxmath}
+\renewcommand{\familydefault}{\rmdefault}
 
-
-% Custom font
-\usepackage[default]{lato}
+\usepackage[hidelinks]{hyperref}
 
 \pagestyle{fancy}
 \fancyhf{} % clear all header and footer fields
@@ -37,7 +37,7 @@
 \addtolength{\oddsidemargin}{-0.5in}
 \addtolength{\evensidemargin}{-0.5in}
 \addtolength{\textwidth}{1in}
-\addtolength{\topmargin}{-.5in}
+\addtolength{\topmargin}{-.58in}
 \addtolength{\textheight}{1.0in}
 
 \urlstyle{same}
@@ -46,10 +46,24 @@
 \raggedright
 \setlength{\tabcolsep}{0in}
 
-% Sections formatting
+% Section titles: equal vertical space above the title and below the rule (titlesec before = after).
+\newlength{\ResumeSectionTitleSkip}
+\setlength{\ResumeSectionTitleSkip}{4pt}
+% Vertical space above each job / degree line (\resumeExperienceHeading, \resumeEducationHeading).
+\newlength{\ResumeBlockHeadingTopSkip}
+\setlength{\ResumeBlockHeadingTopSkip}{10pt}
+% Vertical space above degree lines under the name (heading.tex); tighter than education section headings.
+\newlength{\ResumeHeadingDegreeTopSkip}
+\setlength{\ResumeHeadingDegreeTopSkip}{2pt}
+% Extra space above each \section{Experience|Education|Languages} (after heading / previous block).
+\newlength{\ResumeBigSectionExtraTop}
+\setlength{\ResumeBigSectionExtraTop}{8pt}
 \titleformat{\section}{
-  \vspace{-4pt}\scshape\raggedright\large
-}{}{0em}{}[\color{black}\titlerule\vspace{-5pt}]
+  \normalfont\scshape\raggedright\Large
+}{}{0em}{}[\color{black}\titlerule]
+\titlespacing*{\section}{0pt}{%
+  \dimexpr\ResumeSectionTitleSkip+\ResumeBigSectionExtraTop\relax
+}{\ResumeSectionTitleSkip}
 
 % Ensure that generate pdf is machine readable/ATS parsable
 \pdfgentounicode=1
@@ -57,27 +71,27 @@
 %-------------------------%
 % Custom commands
 \begin{document}
-\include{custom-commands}
+\input{custom-commands}
 
+\vspace{-14pt}
 %-------------------------------------------%
 %%%%%%  RESUME STARTS HERE  %%%%%
 
+% Vertical gap between main blocks (Heading | Experience | Education | Languages).
+% Adjust only this length to tighten or loosen those transitions.
+\newcommand{\ResumeBetweenMainBlocks}{\par\vspace{-8pt}}
+
 %----------HEADING----------%
 \input{src/heading}
-
-%-----------EDUCATION-----------%
-\input{src/education.tex}
+\ResumeBetweenMainBlocks
 %-----------EXPERIENCE-----------%
 \input{src/experience}
-
-%-----------PROJECTS-----------%
-\input{src/projects}
-
-%-----------EXTRACURRICULAR-----------%
-\input{src/extracurricular}
-
-%-----------SKILLS-----------%
-\input{src/skills.tex}
+\ResumeBetweenMainBlocks
+%-----------EDUCATION-----------%
+\input{src/education.tex}
+\ResumeBetweenMainBlocks
+%-----------LANGUAGES-----------%
+\input{src/languages.tex}
 
 %-------------------------------------------%
 \end{document}

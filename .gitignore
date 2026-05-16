@@ -1,0 +1,10 @@
+.stdout
+.stderr
+.log
+.out
+.fls
+.pdfxref
+.aux
+.chktex
+.fdb_latexmk
+.synctex.gz

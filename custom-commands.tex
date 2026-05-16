@@ -1,0 +1,84 @@
+% Uniform vertical gap between major blocks (Education + Experience outer lists, Education subsections)
+\def\ResumeSectionBlockSep{10pt}
+% Left margin of outer experience/education itemize (body text starts this far in; \section titles do not).
+\def\ResumeOuterListLeftMargin{0.15in}
+% topsep=0: first job uses the same skip as between jobs (see \vspace after \section{Experience} in experience.tex).
+\newcommand{\resumeSubHeadingListStart}{%
+  \begin{itemize}[leftmargin=\ResumeOuterListLeftMargin, label={}, itemsep=\ResumeSectionBlockSep, topsep=0pt, parsep=0pt]%
+}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+
+\newcommand{\resumeEduOuterListStart}{%
+  \begin{itemize}[leftmargin=\ResumeOuterListLeftMargin, label={}, itemsep=0pt, topsep=0pt, parsep=0pt]%
+}
+\newcommand{\resumeEduOuterListEnd}{\end{itemize}}
+
+\newcommand{\resumeSubheading}[4]{%
+  \item%
+  \begin{tabular*}{\textwidth}[t]{l@{\extracolsep{\fill}}r}%
+    \textbf{#1} & #2 \\%
+    \textit{\small #3} & \textit{\small #4} \\%
+  \end{tabular*}\vspace{-5pt}%
+}
+
+% Shared bullet list layout (same marker + indent for all resume bullets)
+\newcommand{\ResumeBulletLabel}{\textbullet}
+
+% Experience header: #1 role, #2 company (main line); #3 dates | #4 location (subtitle; place in italics).
+% Top skip: \ResumeBlockHeadingTopSkip in cv.tex.
+\newcommand{\resumeEntryHeading}[4]{%
+  \ifhmode\par\fi\addvspace{\ResumeBlockHeadingTopSkip}%
+  \item[]%
+  {\large\bfseries\rmfamily #1}\ {\normalsize\rmfamily #2}\\*[-0.5ex]%
+  {\normalsize\rmfamily #3~\textbar~\textit{#4}}%
+}
+\let\resumeExperienceHeading\resumeEntryHeading
+
+% Education header: degree + school (single line; no location).
+% Top skip: \ResumeBlockHeadingTopSkip in cv.tex.
+\newcommand{\resumeEducationHeading}[2]{%
+  \ifhmode\par\fi\addvspace{\ResumeBlockHeadingTopSkip}%
+  \item[]%
+  {\large\bfseries\rmfamily #1}\ {\normalsize\rmfamily #2}%
+}
+
+% Degree + institution under the name block (heading.tex): same typography as \resumeEducationHeading but not a list item.
+\newcommand{\resumeHeadingDegree}[2]{%
+  \par\addvspace{\ResumeHeadingDegreeTopSkip}%
+  \noindent{\large\bfseries\rmfamily #1}\ {\normalsize\rmfamily #2}%
+}
+
+% In-education subsection: same format as degree/school lines — #1 \large\bfseries, #2 \normalsize on one line (omit #2 if empty).
+\newcommand{\resumeEduSubsection}[2]{%
+  \par
+  \noindent{\large\bfseries\rmfamily #1}%
+  \if\relax\detokenize{#2}\relax
+  \else
+    \ {\normalsize\rmfamily #2}%
+  \fi
+  \par
+}
+% Kept as a no-op for older templates; spacing between education blocks is controlled by \resumeEduOuterListStart.
+\newcommand{\resumeEduSubsectionBlockGlue}{}
+
+\newcommand{\resumeItemListStart}{%
+  \begin{itemize}[leftmargin=0.26in, label=\ResumeBulletLabel, labelsep=0.42em, itemsep=2pt, parsep=0pt, topsep=4pt, partopsep=0pt, after=\vspace{-6pt}]%
+}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
+
+% Full-width note inside \resumeItemListStart: left flush with \section title; width \textwidth so the right edge matches job headings.
+\newcommand{\resumeItemListNoteNoIndent}[1]{%
+  \item[]%
+  \leavevmode
+  \hspace*{\dimexpr-\leftmargin-\labelwidth-\labelsep-\ResumeOuterListLeftMargin\relax}%
+  \begin{minipage}[t]{\textwidth}%
+  #1%
+  \end{minipage}%
+}
+
+% Education bullet lists: no topsep (subsection already adds \ResumeSectionTitleSkip below title); no negative after (keeps subsection spacing even).
+\newcommand{\resumeEduItemListStart}{%
+  \begin{itemize}[leftmargin=0.26in, label=\ResumeBulletLabel, labelsep=0.42em, itemsep=2pt, parsep=0pt, topsep=0pt, partopsep=0pt]%
+}
+
+\newcommand{\resumeItem}[1]{\item\small{#1}}
